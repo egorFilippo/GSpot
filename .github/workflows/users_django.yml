@@ -7,6 +7,22 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      POETRY_VIRTUALENVS_CREATE: "false"
+      # DB
+#      DB_ENGINE: "postgres"
+#      DB_HOST: "postgres"
+#      DB_PORT: 5432
+#      DB_NAME: "postgres"
+#      DB_USER: "postgres"
+#      DB_PASSWORD: "postgres"
+#      POSTGRES_HOST_AUTH_METHOD: "trust"
+      # Django
+      DJANGO_ENV: "DEVELOPMENT"
+      DJANGO_LOG_LEVEL: "INFO"
+      DJANGO_SECRET_KEY: "whatever"
+      DJANGO_ALLOWED_HOSTS: "*"
+      DJANGO_CORS_ALLOWED_ORIGINS: "http://localhost"
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v3
@@ -17,7 +33,7 @@ jobs:
       - name: flake8
         run: | 
           cd backend/users &&
-          poetry run pre-commit --all-files
-#      - name: black
-#        run: |
-#          python -m black --check .
+          poetry run pre-commit run --all-files
+      - name: tests
+        run: |
+          poetry run python backend/manage.py test
