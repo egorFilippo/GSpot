@@ -28,7 +28,9 @@ class Company(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     contacts = models.ForeignKey('ContactType', on_delete=models.CASCADE)
-    workers = models.ForeignKey(CompanyUser, on_delete=models.PROTECT, related_name='workers', default=0)
+    workers = models.ForeignKey(
+        CompanyUser, on_delete=models.PROTECT, related_name='workers', default=0
+    )
 
 
 class ContactType(models.Model):

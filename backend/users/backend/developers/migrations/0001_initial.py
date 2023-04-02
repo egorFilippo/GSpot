@@ -21,13 +21,49 @@ class Migration(migrations.Migration):
             name='CompanyUser',
             fields=[
                 ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('username', models.CharField(error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username')),
-                ('first_name', models.CharField(blank=True, max_length=150, verbose_name='first name')),
-                ('last_name', models.CharField(blank=True, max_length=150, verbose_name='last name')),
-                ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
-                ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                (
+                    'last_login',
+                    models.DateTimeField(blank=True, null=True, verbose_name='last login'),
+                ),
+                (
+                    'username',
+                    models.CharField(
+                        error_messages={'unique': 'A user with that username already exists.'},
+                        help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.',
+                        max_length=150,
+                        unique=True,
+                        validators=[django.contrib.auth.validators.UnicodeUsernameValidator()],
+                        verbose_name='username',
+                    ),
+                ),
+                (
+                    'first_name',
+                    models.CharField(blank=True, max_length=150, verbose_name='first name'),
+                ),
+                (
+                    'last_name',
+                    models.CharField(blank=True, max_length=150, verbose_name='last name'),
+                ),
+                (
+                    'is_staff',
+                    models.BooleanField(
+                        default=False,
+                        help_text='Designates whether the user can log into this admin site.',
+                        verbose_name='staff status',
+                    ),
+                ),
+                (
+                    'date_joined',
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name='date joined'
+                    ),
+                ),
+                (
+                    'id',
+                    models.UUIDField(
+                        default=uuid.uuid4, editable=False, primary_key=True, serialize=False
+                    ),
+                ),
                 ('email', models.EmailField(db_index=True, max_length=254, unique=True)),
                 ('phone', models.CharField(max_length=12)),
                 ('avatar', models.ImageField(blank=True, upload_to='')),
@@ -35,7 +71,12 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('is_superuser', models.BooleanField(default=False)),
-                ('country', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='common.country')),
+                (
+                    'country',
+                    models.ForeignKey(
+                        null=True, on_delete=django.db.models.deletion.SET_NULL, to='common.country'
+                    ),
+                ),
                 ('friends', models.ManyToManyField(to='developers.companyuser')),
             ],
             options={
@@ -94,7 +135,13 @@ class Migration(migrations.Migration):
                 ('id', models.IntegerField(primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=50)),
                 ('code_name', models.CharField(max_length=50)),
-                ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='developers.developercontenttype')),
+                (
+                    'content_type',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='developers.developercontenttype',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'developer permission',
@@ -106,9 +153,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DeveloperUserPermissions',
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('permission', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='developers.developerpermission')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='developers.companyuser')),
+                (
+                    'id',
+                    models.UUIDField(
+                        default=uuid.uuid4, editable=False, primary_key=True, serialize=False
+                    ),
+                ),
+                (
+                    'permission',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to='developers.developerpermission',
+                    ),
+                ),
+                (
+                    'user',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT, to='developers.companyuser'
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'developer user permission',
@@ -121,8 +184,18 @@ class Migration(migrations.Migration):
             name='DeveloperGroupUserPermissions',
             fields=[
                 ('id', models.IntegerField(primary_key=True, serialize=False)),
-                ('group', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='developers.developergroup')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='developers.companyuser')),
+                (
+                    'group',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT, to='developers.developergroup'
+                    ),
+                ),
+                (
+                    'user',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT, to='developers.companyuser'
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'developer group user permission',
@@ -135,8 +208,20 @@ class Migration(migrations.Migration):
             name='DeveloperGroupPermission',
             fields=[
                 ('id', models.IntegerField(primary_key=True, serialize=False)),
-                ('group', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='developers.developergroup')),
-                ('permission', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.PROTECT, to='developers.developerpermission')),
+                (
+                    'group',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT, to='developers.developergroup'
+                    ),
+                ),
+                (
+                    'permission',
+                    models.ForeignKey(
+                        blank=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to='developers.developerpermission',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'developer group permission',
@@ -148,7 +233,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Company',
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                (
+                    'id',
+                    models.UUIDField(
+                        default=uuid.uuid4, editable=False, primary_key=True, serialize=False
+                    ),
+                ),
                 ('title', models.CharField(max_length=50)),
                 ('description', models.TextField()),
                 ('email', models.EmailField(max_length=254, unique=True)),
@@ -156,8 +246,18 @@ class Migration(migrations.Migration):
                 ('is_confirmed', models.BooleanField(default=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('contacts', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='developers.contacttype')),
-                ('created_by', models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, to='developers.companyuser')),
+                (
+                    'contacts',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to='developers.contacttype'
+                    ),
+                ),
+                (
+                    'created_by',
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.PROTECT, to='developers.companyuser'
+                    ),
+                ),
             ],
         ),
     ]

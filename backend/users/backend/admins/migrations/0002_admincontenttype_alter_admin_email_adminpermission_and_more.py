@@ -16,7 +16,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AdminContentType',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('service_name', models.CharField(max_length=16, verbose_name='Service Name')),
                 ('app_label', models.CharField(max_length=100)),
                 ('model', models.CharField(max_length=100, verbose_name='python model class name')),
@@ -35,15 +40,29 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='admin',
             name='email',
-            field=models.EmailField(db_index=True, max_length=254, unique=True, verbose_name='email address'),
+            field=models.EmailField(
+                db_index=True, max_length=254, unique=True, verbose_name='email address'
+            ),
         ),
         migrations.CreateModel(
             name='AdminPermission',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('name', models.CharField(max_length=255, verbose_name='name')),
                 ('codename', models.CharField(max_length=100, verbose_name='codename')),
-                ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='admins.admincontenttype', verbose_name='content type')),
+                (
+                    'content_type',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='admins.admincontenttype',
+                        verbose_name='content type',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'admin permission',
@@ -60,9 +79,22 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AdminGroup',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('name', models.CharField(max_length=150, unique=True, verbose_name='name')),
-                ('permissions', models.ManyToManyField(blank=True, related_query_name='group', to='admins.adminpermission', verbose_name='permissions')),
+                (
+                    'permissions',
+                    models.ManyToManyField(
+                        blank=True,
+                        related_query_name='group',
+                        to='admins.adminpermission',
+                        verbose_name='permissions',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'admin group',
@@ -77,11 +109,25 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='admin',
             name='groups',
-            field=models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='admins.admingroup', verbose_name='groups'),
+            field=models.ManyToManyField(
+                blank=True,
+                help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+                related_name='user_set',
+                related_query_name='user',
+                to='admins.admingroup',
+                verbose_name='groups',
+            ),
         ),
         migrations.AddField(
             model_name='admin',
             name='user_permissions',
-            field=models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='admins.adminpermission', verbose_name='user permissions'),
+            field=models.ManyToManyField(
+                blank=True,
+                help_text='Specific permissions for this user.',
+                related_name='user_set',
+                related_query_name='user',
+                to='admins.adminpermission',
+                verbose_name='user permissions',
+            ),
         ),
     ]
