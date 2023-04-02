@@ -26,7 +26,7 @@ jobs:
       DJANGO_CORS_ALLOWED_ORIGINS: "http://localhost"
     steps:
       - name: Checkout repository code
-      - uses: actions/setup-python@v3
+        uses: actions/setup-python@v3
         with:
           python-version: "3.10"
           cache: "poetry"
