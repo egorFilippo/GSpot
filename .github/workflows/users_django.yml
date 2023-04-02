@@ -15,7 +15,8 @@ jobs:
           pip install poetry && cd backend/users
           poetry install
       - name: flake8
-        run: |
+        run: | 
+          cd backend/users &&
           poetry run pre-commit --all-files
 #      - name: black
 #        run: |
