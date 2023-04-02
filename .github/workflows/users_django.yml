@@ -13,7 +13,10 @@ jobs:
       - name: Install dependencies
         run: |
           pip install flake8 black
-      - name: Test with flake8
+      - name: flake8
         run: |
           cd backend/users
-          python -m flake8 && python -m black .
+          python -m flake8
+      - name: black
+        run: |
+          python -m black --check .
